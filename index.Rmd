@@ -1,6 +1,6 @@
 ---
 title: "Gov 50 Final Project"
-author: "Your Name Here"
+author: "Joshua Parker"
 description: "My final project"
 output:
   distill::distill_article:
@@ -11,4 +11,4 @@ output:
 
 ## Project thoughts
 
-I am interested in exploring data related to...
+I am interested in exploring data related to Exchange-Traded Funds (ETFs), specifically which ETFs perform best in certain market conditions. I have been an active ETF investor for a few years and have seen their returns fluctuate as a result of broader macroeconomic trends. I want to research the relationships between market conditions and ETF performances to better inform my future investment decisions.
