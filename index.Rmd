@@ -7,25 +7,113 @@ output:
     self_contained: false
 ---
 
-
-
 ## Project thoughts
 
-I am interested in exploring data related to the impact of the base Manufacturer's Suggested Retail Price (MSRP) and driving range of electric vehicles (EVs) on the adoption of EVs in legislative districts. As a passionate advocate for forging environmental progress, I want to better understand the relationships between the MSRP of EVs and consumer behavior to inform future decisions of manufacturers and government officials to catalyze the transition to renewable energy.
+I am interested in exploring data related to the impact of the base Manufacturer's Suggested Retail Price (MSRP) and driving range of electric vehicles (EVs) on the adoption of EVs in cities. As a passionate advocate for forging environmental progress, I want to better understand the relationships between the MSRP of EVs and consumer behavior to inform future decisions of manufacturers and government officials to catalyze the transition to renewable energy.
 
 ## Research proposal
 
-Does the base MSRP and driving range of EVs have a causal effect on the adoption of EVs in legislative districts?
+Does the base MSRP and driving range of EVs have a causal effect on the adoption of EVs in cities?
 
-I hypothesize that legislative districts with lower base MSRP and higher driving range EVs are more likely to experience increased adoption of EVs. This is rooted in the belief that affordability and a strong battery range are attractive to the common customer. In contrast, legislative districts with higher base MSRP and lower driving range EVs may lack the economic accessibility to practical EVs, and thus, witness lower rates of EV adoption.
+I hypothesize that cities with lower base MSRP and higher driving range EVs are more likely to experience increased adoption of EVs. This is rooted in the belief that affordability and a strong battery range are attractive to the common customer. In contrast, cities with higher base MSRP and lower driving range EVs may lack the economic accessibility to practical EVs, and thus, witness lower rates of EV adoption.
 
 All research will be conducted using the publicly available Electric Vehicle Population data set from the Washington State Department of Licensing (DOL).
 
 The explanatory variables of interest are base MSRP (base_msrp) and driving range (electric_range). Base MSRP is measured as the lowest MSRP for any trim level of the model in question. Driving range is measured as the distance the vehicle can travel purely on its electric charge.
 
-The outcome variable of interest is EV adoption in legislative districts. This variable is not present in the raw data set, but will be measured as the count of registered EVs in a given legislative district.
+The outcome variable of interest is EV adoption in cities. This variable is not present in the raw data set, but will be measured as the count of registered EVs in a given city.
 
-If the analysis yields a negative and statistically significant coefficient for the base MSRP variable and a positive and statistically significant coefficient for the driving range variable, it would provide support for the hypothesis. This would suggest that, on average, EVs with lower base MSRPs and longer electric ranges are associated with a higher count of EVs in legislative districts. Such a pattern would align with the idea that addressing high costs and range anxiety through longer electric ranges positively influences consumer adoption decisions.
+If the analysis yields a negative and statistically significant coefficient for the base MSRP variable and a positive and statistically significant coefficient for the driving range variable, it would provide support for the hypothesis. This would suggest that, on average, EVs with lower base MSRPs and longer electric ranges are associated with a higher count of EVs in cities. Such a pattern would align with the idea that addressing high costs and range anxiety through longer electric ranges positively influences consumer adoption decisions.
 
-Conversely, if the coefficient for base MSRP is not statistically significant or positive, or the coefficient for driving range is not statistically significant or negative, it would suggest that there is no clear association between base MSRP, electric range and electric vehicle adoption. This could imply that other factors, such as vehicle design and charging infrastructure, may play a more prominent role in consumer adoption trends.
+Conversely, if the coefficient for base MSRP is not statistically significant or positive, or the coefficient for driving range is not statistically significant or negative, it would suggest that there is no clear association between base MSRP, electric range and electric vehicle adoption. This could imply that other factors, such as vehicle design and charging infrastructure, play a more prominent role in consumer adoption trends.
+
+## Data Wrangling
+
+```{r}
+# load packages
+library(tidyverse)
+library(dplyr)
+```
+
+```{r}
+# read csv
+EV <- read_csv("EV_data.csv")
+
+# drop observations where base MSRP or driving range equal zero
+EV <- EV %>%
+  filter(base_msrp != 0) %>%
+  filter(electric_range != 0)
+```
+
+```{r}
+# data grouped by city
+cities <- EV %>%
+  group_by(city) %>%
+  summarize(city_EV_count = n(),
+            average_base_msrp = mean(base_msrp),
+            average_electric_range = mean(electric_range)) %>%
+  arrange(desc(city_EV_count))
+```
+
+## Data Visualizations
+
+```{r}
+# city EV count histogram
+ggplot(cities, aes(x = city_EV_count)) +
+  geom_histogram(bins = 20) +
+  labs(title = "City EV Count Histogram",
+       x = "City EV Count",
+       y = "Count")
+```
+
+```{r}
+# base MSRP histogram
+ggplot(EV, aes(x = base_msrp)) +
+  geom_histogram(fill = "red3", bins = 20) +
+  xlim(c(0, 200000)) +
+  labs(title = "Base MSRP Histogram",
+       x = "Base MSRP ($)",
+       y = "Count")
+```
+
+```{r}
+# average base MSRP vs city EV count scatter plot
+ggplot(cities, aes(x = average_base_msrp, y = city_EV_count)) +
+  xlim(30000, 110000) +
+  ylim(0, 200) +
+  geom_point(color = "red3", alpha = 0.3, size = 2) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Average Base MSRP vs City EV Count",
+       x = "Average Base MSRP ($)",
+       y = "City EV Count")
+```
+
+```{r}
+# driving range histogram
+ggplot(EV, aes(x = electric_range)) +
+  geom_histogram(fill = "darkgreen", bins = 20) +
+  labs(title = "Driving Range Histogram",
+       x = "Driving Range (mi.)",
+       y = "Count")
+```
+
+```{r}
+# average driving range vs city EV count scatter plot
+ggplot(cities, aes(x = average_electric_range, y = city_EV_count)) +
+  geom_point(color = "darkgreen", alpha = 0.3, size = 2) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Average Driving Range vs City EV Count",
+       x = "Average Driving Range (mi.)",
+       y = "City EV Count")
+```
+
+```{r}
+# correlation table
+cor_table <- tibble(base_msrp_cor = cor(cities$average_base_msrp, cities$city_EV_count),
+                    electric_range_cor = cor(cities$average_electric_range, cities$city_EV_count))
+
+knitr::kable(cor_table,
+             col.names = c("Base MSRP", "Driving Range"),
+             caption = "Correlation Coefficients")
+```
 
