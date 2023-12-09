@@ -1522,7 +1522,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <h2 id="research-proposal">Research Proposal</h2>
 <p>Does the base MSRP and driving range of EVs have a causal effect on the adoption of EVs in cities?</p>
 <p>I hypothesize that cities with lower base MSRP and higher driving range EVs are more likely to experience increased adoption of EVs. This is rooted in the belief that affordability and a strong battery range are attractive to the common customer. In contrast, cities with higher base MSRP and lower driving range EVs may lack the economic accessibility to practical EVs, and thus, witness lower rates of EV adoption.</p>
-<p>All research will be conducted using the publicly available Electric Vehicle Population data set from the Washington State Department of Licensing (DOL).</p>
+<p>All research will be conducted using the publicly available Electric Vehicle Population data set from the Washington State Department of Licensing (DOL) and US Zip Codes Database from the US Census Bureau.</p>
 <p>The explanatory variables of interest are base MSRP (base_msrp) and driving range (electric_range). Base MSRP is measured as the lowest MSRP for any trim level of the model in question. Driving range is measured as the distance the vehicle can travel purely on its electric charge.</p>
 <p>The outcome variable of interest is EV adoption in cities. This variable is not present in the raw data set, but will be measured as the count of registered EVs in a given city.</p>
 <p>If the analysis yields a negative and statistically significant coefficient for the base MSRP variable and a positive and statistically significant coefficient for the driving range variable, it would provide support for the hypothesis. This would suggest that, on average, EVs with lower base MSRPs and longer electric ranges are associated with a higher count of EVs in cities. Such a pattern would align with the idea that addressing high costs and range anxiety through longer electric ranges positively influences consumer adoption decisions.</p>
@@ -1573,7 +1573,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <h2 id="data-visualizations">Data Visualizations</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># city EV count heat map</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># graph 1: city EV count density map</span></span>
 <span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_polygon.html'>geom_polygon</a></span><span class='op'>(</span><span class='va'>washington_map</span>, </span>
 <span>              mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>long</span>, y <span class='op'>=</span> <span class='va'>lat</span><span class='op'>)</span>,</span>
@@ -1584,7 +1584,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span>             alpha <span class='op'>=</span> <span class='fl'>0.3</span>,</span>
 <span>             color <span class='op'>=</span> <span class='st'>"blue"</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_size.html'>scale_size</a></span><span class='op'>(</span>range <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Graph 1: City EV Count Heat Map"</span>,</span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Graph 1: City EV Count Density Map"</span>,</span>
 <span>       x <span class='op'>=</span> <span class='st'>"Longitude"</span>,</span>
 <span>       y <span class='op'>=</span> <span class='st'>"Latitude"</span>,</span>
 <span>       size <span class='op'>=</span> <span class='st'>"EV Count"</span><span class='op'>)</span> <span class='op'>+</span></span>
@@ -1594,7 +1594,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># city EV count histogram</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># graph 2: city EV count histogram</span></span>
 <span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>cities</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>city_EV_count</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span>bins <span class='op'>=</span> <span class='fl'>40</span>, fill <span class='op'>=</span> <span class='st'>"blue"</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Graph 2: City EV Count Histogram"</span>,</span>
@@ -1606,7 +1606,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># base MSRP histogram</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># graph 3: base MSRP histogram</span></span>
 <span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>EV</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>base_msrp</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"red3"</span>, bins <span class='op'>=</span> <span class='fl'>40</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>xlim</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>200000</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
@@ -1619,34 +1619,34 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># average base MSRP vs city EV count scatter plot</span></span>
-<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>cities</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>average_base_msrp</span>, y <span class='op'>=</span> <span class='va'>city_EV_count</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>xlim</a></span><span class='op'>(</span><span class='fl'>30000</span>, <span class='fl'>110000</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>ylim</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>200</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"red3"</span>, alpha <span class='op'>=</span> <span class='fl'>0.3</span>, size <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"lm"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Graph 4: Average Base MSRP vs City EV Count"</span>,</span>
-<span>       x <span class='op'>=</span> <span class='st'>"Average Base MSRP ($)"</span>,</span>
-<span>       y <span class='op'>=</span> <span class='st'>"City EV Count"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># graph 4: driving range histogram</span></span>
+<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>EV</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>electric_range</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"darkgreen"</span>, bins <span class='op'>=</span> <span class='fl'>40</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Graph 4: Driving Range Histogram"</span>,</span>
+<span>       x <span class='op'>=</span> <span class='st'>"Driving Range (mi.)"</span>,</span>
+<span>       y <span class='op'>=</span> <span class='st'>"Count"</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="index_files/figure-html5/unnamed-chunk-5-1.png" width="624" /></p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># driving range histogram</span></span>
-<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>EV</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>electric_range</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"darkgreen"</span>, bins <span class='op'>=</span> <span class='fl'>40</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Graph 5: Driving Range Histogram"</span>,</span>
-<span>       x <span class='op'>=</span> <span class='st'>"Driving Range (mi.)"</span>,</span>
-<span>       y <span class='op'>=</span> <span class='st'>"Count"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># graph 5: average base MSRP vs city EV count scatter plot</span></span>
+<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>cities</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>average_base_msrp</span>, y <span class='op'>=</span> <span class='va'>city_EV_count</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>xlim</a></span><span class='op'>(</span><span class='fl'>30000</span>, <span class='fl'>110000</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>ylim</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>200</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"red3"</span>, alpha <span class='op'>=</span> <span class='fl'>0.3</span>, size <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"lm"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Graph 5: Average Base MSRP vs City EV Count"</span>,</span>
+<span>       x <span class='op'>=</span> <span class='st'>"Average Base MSRP ($)"</span>,</span>
+<span>       y <span class='op'>=</span> <span class='st'>"City EV Count"</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="index_files/figure-html5/unnamed-chunk-6-1.png" width="624" /></p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># average driving range vs city EV count scatter plot</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># graph 6: average driving range vs city EV count scatter plot</span></span>
 <span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>cities</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>average_electric_range</span>, y <span class='op'>=</span> <span class='va'>city_EV_count</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"darkgreen"</span>, alpha <span class='op'>=</span> <span class='fl'>0.3</span>, size <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"lm"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span></span>
@@ -1659,7 +1659,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># correlation table</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># table 1: correlation table</span></span>
 <span><span class='va'>cor_table</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>base_msrp_cor <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span><span class='op'>(</span><span class='va'>cities</span><span class='op'>$</span><span class='va'>average_base_msrp</span>, <span class='va'>cities</span><span class='op'>$</span><span class='va'>city_EV_count</span><span class='op'>)</span>,</span>
 <span>                    electric_range_cor <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span><span class='op'>(</span><span class='va'>cities</span><span class='op'>$</span><span class='va'>average_electric_range</span>, <span class='va'>cities</span><span class='op'>$</span><span class='va'>city_EV_count</span><span class='op'>)</span><span class='op'>)</span></span>
 <span></span>
@@ -1685,12 +1685,20 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </table>
 </div>
 <h2 id="analysis">Analysis</h2>
-<p>Graphs 1-2 ___.</p>
-<p>The near-zero negative correlation coefficient (-0.0199) for base MSRP suggests that there is a very slight tendency for cities with lower base MSRPs to have higher EV adoption. However, this relationship is extremely weak, indicating that base MSRP might not be a strong predictor of EV adoption in</p>
-<p>Similarly, the driving range’s correlation coefficient (-0.0486) is also very close to zero and negative. This implies a slightly stronger inverse relationship compared to base MSRP, but still very weak. Cities with higher driving ranges might see marginally higher adoption, but the influence of driving range seems minimal.</p>
-<p>^^ include context of study. ex. for every $1 increase in MSRP, x decrease in city EV count</p>
+<p>The research design is cross-sectional, utilizing observational data from November 15, 2023. This offers a snapshot at the relationships between base MSRP, driving range, and EV adoption in Washington cities.</p>
+<h4 id="variable-plots-graphs-1-4">Variable Plots (Graphs 1-4)</h4>
+<p>The majority of cities have less than 100 EVs, with most high-density cities in the Seattle metropolitan area. Cities with high EV-counts tend to be close to other high EV-count cities, forming clusters. This may be a result of EVs being more convenient when nearby cities also have a high concentration of EVs and EV-friendly infrastructure. The right-skew in the city EV count histogram reflects a concentration of EVs in a few cities, likely due to higher income levels or more charging stations (Graphs 1-2).</p>
+<p>Base MSRP is relatively similar across EVs, ranging from $25k to $75k, which suggests a competitive pricing strategy to align with gasoline cars. The outlier at $175k might represent luxury EVs targeted at wealthier individuals (Graph 3).</p>
+<p>The sporadic nature of EV driving ranges and the clusering around ~20, ~90, and ~210 miles might reflect different tiers of EV technology and consumer preferences. For example, EVs might use a few types of batteries that each have a specific range. Moreover, car body style (ie. coupe, sedan, SUV) might play a role in the congregation of driving ranges (Graph 4).</p>
+<h4 id="regressions-graphs-5-6-table-1">Regressions (Graphs 5-6, Table 1)</h4>
+<p>The hypothesis of this experiment is that cities with lower base MSRP and higher driving range EVs have higher EV counts.</p>
+<p>The correlation coefficient of base MSRP and city EV count is -0.0199; on average, for every $1 increase in average base MSRP, there is a 0.0199 decrease in the number of EVs in a city. The negative coefficient supports the hypothesis that base MSRP and city EV count are negatively correlated. However, the low coefficient value is not statistically or practically significant, suggesting some price sensitivity among consumers but not as a predominant factor (Graph 5, Table 1).</p>
+<p>The correlation coefficient of driving range and city EV count is -0.0486; on average, for every 1 mile increase in driving range, there is a 0.0486 decrease in the number of EVs in a city. The negative coefficient reveals a counterintuitive trend that disproves the hypothesis, implying that a higher driving range results is a lower city EV count, albiet the effect size relatively small. Similar to base MSRP, this suggests that longer ranges are not necessarily a decisive factor for consumers (Graph 6, Table 1).</p>
+<p>The cross-sectional design of this experiment captures correlations at a certain point in time. Therefore, we should not interpret these results causally.</p>
 <h2 id="conclusion">Conclusion</h2>
-<p>1 paragraph summarizing results and support of hypothesis and limitations of analysis, how to improve with more time and money</p>
+<p>The results of this experiment provide mixed support for the hypothesis. While lower base MSRP and higher driving range are believed to encourage EV adoption, the observed correlations suggest that these factors play a less significant role than expected. Moreover, it emphasizes that government policies to slash EV purchase prices or manufacturer initiatives to increase driving ranges may not significantly increase EV adoption by themselves. A more multi-faceted approach is necessary.</p>
+<p>The cross-sectional design and sole focus on Washington makes it difficult to interpret these results causally and extrapolate them to the general population. Factors such as regional policies, charging infrastructure, or socioeconomic standings have a strong influence on EV adoption patterns and may have significantly confounded the results.</p>
+<p>With more time and money, the analysis could be improved through an experimental study on a broader geographic area. In this improved study, I would also incorporate multivariable regressions to control for potential confounding factors. This would allow us to interpret conclusions causally and generalize the results to the public.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
