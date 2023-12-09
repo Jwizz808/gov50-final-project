@@ -17,7 +17,7 @@ Does the base MSRP and driving range of EVs have a causal effect on the adoption
 
 I hypothesize that cities with lower base MSRP and higher driving range EVs are more likely to experience increased adoption of EVs. This is rooted in the belief that affordability and a strong battery range are attractive to the common customer. In contrast, cities with higher base MSRP and lower driving range EVs may lack the economic accessibility to practical EVs, and thus, witness lower rates of EV adoption.
 
-All research will be conducted using the publicly available Electric Vehicle Population data set from the Washington State Department of Licensing (DOL).
+All research will be conducted using the publicly available Electric Vehicle Population data set from the Washington State Department of Licensing (DOL) and US Zip Codes Database from the US Census Bureau.
 
 The explanatory variables of interest are base MSRP (base_msrp) and driving range (electric_range). Base MSRP is measured as the lowest MSRP for any trim level of the model in question. Driving range is measured as the distance the vehicle can travel purely on its electric charge.
 
@@ -175,7 +175,7 @@ The hypothesis of this experiment is that cities with lower base MSRP and higher
 
 The correlation coefficient of base MSRP and city EV count is -0.0199; on average, for every \$1 increase in average base MSRP, there is a 0.0199 decrease in the number of EVs in a city. The negative coefficient supports the hypothesis that base MSRP and city EV count are negatively correlated. However, the low coefficient value is not statistically or practically significant, suggesting some price sensitivity among consumers but not as a predominant factor (Graph 5, Table 1).
 
-The correlation coefficient of driving range and city EV count is -0.0486; on average, for every 1 mile increase in driving range, there is a 0.0486 decrease in the number of EVs in a city. The negative coefficient reveals a counterintuitive trend that disproves the hypothesis, implying that a higher driving range results is a lesser city EV count, albiet the effect size relatively small. Similar to base MSRP, this suggests that longer ranges are not necessarily a decisive factor for consumers (Graph 6, Table 1).
+The correlation coefficient of driving range and city EV count is -0.0486; on average, for every 1 mile increase in driving range, there is a 0.0486 decrease in the number of EVs in a city. The negative coefficient reveals a counterintuitive trend that disproves the hypothesis, implying that a higher driving range results is a lower city EV count, albiet the effect size relatively small. Similar to base MSRP, this suggests that longer ranges are not necessarily a decisive factor for consumers (Graph 6, Table 1).
 
 The cross-sectional design of this experiment captures correlations at a certain point in time. Therefore, we should not interpret these results causally.
 
@@ -185,4 +185,4 @@ The results of this experiment provide mixed support for the hypothesis. While l
 
 The cross-sectional design and sole focus on Washington makes it difficult to interpret these results causally and extrapolate them to the general population. Factors such as regional policies, charging infrastructure, or socioeconomic standings have a strong influence on EV adoption patterns and may have significantly confounded the results.
 
-With more time and money, the analysis could be improved through an experimental study on a broader geographic area. In this study, I would also incorporate multivariable regressions to control for potential confounding factors. This would allow us to interpret conclusions causally and generalize the results to the public.
+With more time and money, the analysis could be improved through an experimental study on a broader geographic area. In this improved study, I would also incorporate multivariable regressions to control for potential confounding factors. This would allow us to interpret conclusions causally and generalize the results to the public.
