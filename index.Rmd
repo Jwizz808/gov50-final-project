@@ -40,13 +40,13 @@ library(maps)
 EV <- read_csv("EV_data.csv")
 zipcode <- read_csv("zipcode_data.csv")
 
-# drop observations in EV dataset where base MSRP or driving range equal zero
+# drop rows where base MSRP or driving range equal zero
 EV <- EV %>%
   filter(base_msrp != 0,
          electric_range != 0,
          state == "WA")
 
-# drop columns in zipcode dataset that are not latitude or longitude
+# drop columns that are not latitude or longitude
 zipcode <- zipcode %>%
   select(zip, lat, lng) %>%
   rename(zip_code = zip) %>%
@@ -76,11 +76,14 @@ washington_map <- map_data("state", region = "washington")
 # graph 1: city EV count density map
 ggplot() +
   geom_polygon(washington_map, 
-              mapping = aes(x = long, y = lat),
+              mapping = aes(x = long,
+                            y = lat),
               color = "black",
               fill = "white") +
   geom_point(cities,
-             mapping = aes(x = long, y = lat, size = city_EV_count),
+             mapping = aes(x = long,
+                           y = lat,
+                           size = city_EV_count),
              alpha = 0.3,
              color = "blue") +
   scale_size(range = c(1,10)) +
@@ -94,7 +97,8 @@ ggplot() +
 ```{r}
 # graph 2: city EV count histogram
 ggplot(cities, aes(x = city_EV_count)) +
-  geom_histogram(bins = 40, fill = "blue") +
+  geom_histogram(bins = 40,
+                 fill = "blue") +
   labs(title = "Graph 2: City EV Count Histogram",
        x = "City EV Count",
        y = "Count") +
@@ -104,7 +108,8 @@ ggplot(cities, aes(x = city_EV_count)) +
 ```{r}
 # graph 3: base MSRP histogram
 ggplot(EV, aes(x = base_msrp)) +
-  geom_histogram(fill = "red3", bins = 40) +
+  geom_histogram(fill = "red3",
+                 bins = 40) +
   xlim(c(0, 200000)) +
   labs(title = "Graph 3: Base MSRP Histogram",
        x = "Base MSRP ($)",
@@ -115,7 +120,8 @@ ggplot(EV, aes(x = base_msrp)) +
 ```{r}
 # graph 4: driving range histogram
 ggplot(EV, aes(x = electric_range)) +
-  geom_histogram(fill = "darkgreen", bins = 40) +
+  geom_histogram(fill = "darkgreen",
+                 bins = 40) +
   labs(title = "Graph 4: Driving Range Histogram",
        x = "Driving Range (mi.)",
        y = "Count") +
@@ -124,11 +130,15 @@ ggplot(EV, aes(x = electric_range)) +
 
 ```{r}
 # graph 5: average base MSRP vs city EV count scatter plot
-ggplot(cities, aes(x = average_base_msrp, y = city_EV_count)) +
+ggplot(cities, aes(x = average_base_msrp,
+                   y = city_EV_count)) +
   xlim(30000, 110000) +
   ylim(0, 200) +
-  geom_point(color = "red3", alpha = 0.3, size = 2) +
-  geom_smooth(method = "lm", se = FALSE) +
+  geom_point(color = "red3",
+             alpha = 0.3,
+             size = 2) +
+  geom_smooth(method = "lm",
+              se = FALSE) +
   labs(title = "Graph 5: Average Base MSRP vs City EV Count",
        x = "Average Base MSRP ($)",
        y = "City EV Count") +
@@ -137,9 +147,13 @@ ggplot(cities, aes(x = average_base_msrp, y = city_EV_count)) +
 
 ```{r}
 # graph 6: average driving range vs city EV count scatter plot
-ggplot(cities, aes(x = average_electric_range, y = city_EV_count)) +
-  geom_point(color = "darkgreen", alpha = 0.3, size = 2) +
-  geom_smooth(method = "lm", se = FALSE) +
+ggplot(cities, aes(x = average_electric_range,
+                   y = city_EV_count)) +
+  geom_point(color = "darkgreen",
+             alpha = 0.3,
+             size = 2) +
+  geom_smooth(method = "lm",
+              se = FALSE) +
   labs(title = "Graph 6: Average Driving Range vs City EV Count",
        x = "Average Driving Range (mi.)",
        y = "City EV Count") +
@@ -148,8 +162,10 @@ ggplot(cities, aes(x = average_electric_range, y = city_EV_count)) +
 
 ```{r}
 # table 1: correlation table
-cor_table <- tibble(base_msrp_cor = cor(cities$average_base_msrp, cities$city_EV_count),
-                    electric_range_cor = cor(cities$average_electric_range, cities$city_EV_count))
+cor_table <- tibble(base_msrp_cor = cor(cities$average_base_msrp,
+                                        cities$city_EV_count),
+                    electric_range_cor = cor(cities$average_electric_range,
+                                             cities$city_EV_count))
 
 knitr::kable(cor_table,
              digits = 4,
